@@ -25,7 +25,7 @@ class App extends Component {
 
     const accounts = await web3.eth.getAccounts();
 
-    this.setState({ message: "Waiting on transaciton success..." });
+    this.setState({ message: "Waiting on transaction success..." });
 
     await lottery.methods.enter().send({
       from: accounts[0],
@@ -35,6 +35,18 @@ class App extends Component {
     this.setState({ message: "You have been entered!" });
   };
 
+  onClick = async () => {
+    const accounts = await web3.eth.getAccounts();
+    this.setState({ message: "Waiting on transaction success..." });
+
+    await lottery.methods.pickWinner().send({
+      from: accounts[0]
+    });
+
+    this.setState({ message: "A winner has been picked!" });
+  };
+
+  //render the pickAWinner all the time even though only the owner should see it normally
   render() {
     return (
       <div>
@@ -57,6 +69,10 @@ class App extends Component {
           </div>
           <button>Enter</button>
         </form>
+        <hr />
+
+        <h4>Ready to pick a winner></h4>
+        <button onClick={this.onClick}> </button>
 
         <hr />
 

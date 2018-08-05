@@ -9,7 +9,8 @@ class App extends Component {
     manager: "",
     players: [],
     balance: "",
-    value: ""
+    value: "",
+    message: ""
   };
   async componentDidMount() {
     //do not have to specify a 'from' for `call` because we are using metamask - evan
@@ -23,10 +24,15 @@ class App extends Component {
     formSubmissionEvent.preventDefault();
 
     const accounts = await web3.eth.getAccounts();
+
+    this.setState({ message: "Waiting on transaciton success..." });
+
     await lottery.methods.enter().send({
       from: accounts[0],
       value: web3.utils.toWei(this.state.value, "ether")
-    });
+    }); //can take 15-60seconds
+
+    this.setState({ message: "You have been entered!" });
   };
 
   render() {
@@ -51,6 +57,10 @@ class App extends Component {
           </div>
           <button>Enter</button>
         </form>
+
+        <hr />
+
+        <h1>{this.state.message}</h1>
       </div>
     );
   }

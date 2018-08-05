@@ -72,7 +72,7 @@ class App extends Component {
         <hr />
 
         <h4>Ready to pick a winner></h4>
-        <button onClick={this.onClick}> </button>
+        <button onClick={this.onClick}> Pick a winner! </button>
 
         <hr />
 

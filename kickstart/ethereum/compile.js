@@ -13,8 +13,6 @@ fs.ensureDirSync(buildPath);
 
 //take each contract in compilerOutput and put it in build
 for (let contract in compilerOutput) {
-	fs.outputJsonSync(
-		path.resolve(buildPath, contract + ".json"),
-		compilerOutput[contract]
-	);
+	outputPath = path.resolve(buildPath, contract.replace(":", "") + ".json");
+	fs.outputJsonSync(outputPath, compilerOutput[contract]);
 }
